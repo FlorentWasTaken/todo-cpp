@@ -16,6 +16,13 @@ The front-end part will be made with JS framework.
 
 # 🔨 How to build
 
+- On Windows (Visual Studio), run : `./setup.bat`
+
+## 🧰 Requirements
+
+- Conan 2.x
+- Cmake 3.x
+
 # 📡 How to contribute
 
 I you want to contribute to the project, please open an issue, I'll be happy to discuss with you !
