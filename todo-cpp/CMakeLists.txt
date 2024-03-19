@@ -1,6 +1,9 @@
 ﻿cmake_minimum_required(VERSION 3.28)
 add_executable (todo-cpp "todo-cpp.cpp" "todo-cpp.hpp")
 
+file(GLOB SOURCES "./**/*.cpp" "./**/*.hpp")
+target_sources(todo-cpp PRIVATE ${SOURCES})
+
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET todo-cpp PROPERTY CXX_STANDARD 20)
 endif()
