@@ -16,7 +16,10 @@ namespace todo {
 			virtual void setDescription(const std::string&) = 0;
 
 			virtual unsigned int getStartDate() const = 0;
+			virtual void setStartDate(const unsigned int&) = 0;
 			virtual unsigned int getDueDate() const = 0;
+			virtual void setDueDate(const unsigned int&) = 0;
+
 	};
 
 	class ACard : public ICard {
@@ -32,7 +35,10 @@ namespace todo {
 			void setDescription(const std::string&);
 
 			unsigned int getStartDate() const;
+			void setStartDate(const unsigned int&);
+
 			unsigned int getDueDate() const;
+			void setDueDate(const unsigned int&);
 
 		private:
 			std::string mTitle = "";
