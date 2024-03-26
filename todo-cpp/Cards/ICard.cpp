@@ -77,3 +77,30 @@ void todo::ACard::setDueDate(const unsigned int &date)
 {
 	mDueDate = date;
 }
+
+/**
+ * Add a label to this card. (labels are unique)
+ * @param std::shared_ptr<todo::ILabel> & | label to add
+ * @return void
+**/
+void todo::ACard::addLabel(std::shared_ptr<todo::ILabel> &label)
+{
+	if (label == nullptr)
+		return;
+	mLabels.push_back(label);
+}
+
+/**
+ * Remove a label to this card. (labels are unique)
+ * @param std::shared_ptr<todo::ILabel> & | label to remove
+ * @return void
+**/
+void todo::ACard::removeLabel(std::shared_ptr<todo::ILabel> &label)
+{
+	if (label == nullptr)
+		return;
+	mLabels.remove_if([&label](const std::shared_ptr<ILabel> &ptr) {
+		return ptr == label;
+	});
+
+}

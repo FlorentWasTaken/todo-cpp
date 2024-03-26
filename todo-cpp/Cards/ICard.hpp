@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
+#include <list>
 #include "../Tools/tool-string.hpp"
+#include "../Labels/Label.hpp"
 
 namespace todo {
 	class ICard {
@@ -19,6 +21,9 @@ namespace todo {
 			virtual void setStartDate(const unsigned int&) = 0;
 			virtual unsigned int getDueDate() const = 0;
 			virtual void setDueDate(const unsigned int&) = 0;
+
+			virtual void addLabel(std::shared_ptr<ILabel>&) = 0;
+			virtual void removeLabel(std::shared_ptr<ILabel>&) = 0;
 
 	};
 
@@ -40,10 +45,14 @@ namespace todo {
 			unsigned int getDueDate() const;
 			void setDueDate(const unsigned int&);
 
+			void addLabel(std::shared_ptr<ILabel>&);
+			void removeLabel(std::shared_ptr<ILabel>&);
+
 		private:
 			std::string mTitle = "";
 			std::string mDescription = "";
 			unsigned int mStartDate = 0;
 			unsigned int mDueDate = 0;
+			std::list<std::shared_ptr<ILabel>> mLabels;
 	};
 };
