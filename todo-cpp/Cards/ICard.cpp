@@ -1,5 +1,11 @@
 #include "ICard.hpp"
 
+todo::ACard::ACard()
+{
+	mUUID = createUUIDString();
+}
+
+
 /**
  * Get card's title.
  * @return std::string | card's title
@@ -103,4 +109,13 @@ void todo::ACard::removeLabel(std::shared_ptr<todo::ILabel> &label)
 		return ptr == label;
 	});
 
+}
+
+/**
+ * Get card's uuid (used to identify labels).
+ * @return std::string | card's uuid
+**/
+std::string todo::ACard::getUUID() const
+{
+	return mUUID;
 }

@@ -1,5 +1,10 @@
 #include "ILabel.hpp"
 
+todo::ALabel::ALabel()
+{
+	mUUID = createUUIDString();
+}
+
 /**
  * Get label's title.
  * @return std::string | label's title
@@ -57,4 +62,13 @@ unsigned short todo::ALabel::getPriority() const
 void todo::ALabel::setPriority(const unsigned short &priority)
 {
 	mPriority = priority;
+}
+
+/**
+ * Get label's uuid (used to identify labels).
+ * @return std::string | label's uuid
+**/
+std::string todo::ALabel::getUUID() const
+{
+	return mUUID;
 }

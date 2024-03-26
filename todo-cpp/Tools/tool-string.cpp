@@ -12,3 +12,15 @@ bool isAlphaNum(const std::string &str)
             return false;
     return true;
 }
+
+/**
+ * Create an unique ID as a string.
+ * @return string | the generated UUID.
+**/
+std::string createUUIDString()
+{
+    boost::uuids::random_generator generator;
+    boost::uuids::uuid uuid = generator();
+
+    return boost::uuids::to_string(uuid);
+}

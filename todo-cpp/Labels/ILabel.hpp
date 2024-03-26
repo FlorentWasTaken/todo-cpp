@@ -24,11 +24,13 @@ namespace todo {
 
 			virtual unsigned short getPriority() const = 0;
 			virtual void setPriority(const unsigned short&) = 0;
+
+			virtual std::string getUUID() const = 0;
 	};
 
 	class ALabel : public ILabel {
 		public:
-			ALabel() = default;
+			ALabel();
 			virtual ~ALabel() = default;
 
 
@@ -41,10 +43,13 @@ namespace todo {
 			unsigned short getPriority() const;
 			void setPriority(const unsigned short&);
 
+			std::string getUUID() const;
+
 
 		private:
 			std::string mTitle = "";
 			LabelColor mColor;
 			unsigned short mPriority = 0;
+			std::string mUUID = "";
 	};
 };
