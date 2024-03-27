@@ -72,3 +72,22 @@ std::string todo::ALabel::getUUID() const
 {
 	return mUUID;
 }
+
+/**
+ * Get label's db id (index in SQL table).
+ * @return unsigned int | label's db id
+**/
+unsigned int todo::ALabel::getDBiD() const
+{
+	return mDBiD;
+}
+
+/**
+ * Set label's db id (index in SQL table) when using SELECT for example.
+ * @param const unsigned int &id | the id to set
+ * @return void
+**/
+void todo::ALabel::setDBiD(const unsigned int& id)
+{
+	mDBiD = id;
+}

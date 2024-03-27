@@ -119,3 +119,22 @@ std::string todo::ACard::getUUID() const
 {
 	return mUUID;
 }
+
+/**
+ * Get card's db id (index in SQL table).
+ * @return unsigned int | card's db id
+**/
+unsigned int todo::ACard::getDBiD() const
+{
+	return mDBiD;
+}
+
+/**
+ * Set card's db id (index in SQL table) when using SELECT for example.
+ * @param const unsigned int &id | the id to set
+ * @return void
+**/
+void todo::ACard::setDBiD(const unsigned int &id)
+{
+	mDBiD = id;
+}

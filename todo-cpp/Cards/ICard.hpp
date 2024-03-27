@@ -26,6 +26,8 @@ namespace todo {
 			virtual void removeLabel(std::shared_ptr<ILabel>&) = 0;
 
 			virtual std::string getUUID() const = 0;
+			virtual unsigned int getDBiD() const = 0;
+			virtual void setDBiD(const unsigned int&) = 0;
 
 	};
 
@@ -51,6 +53,8 @@ namespace todo {
 			void removeLabel(std::shared_ptr<ILabel>&);
 
 			std::string getUUID() const;
+			unsigned int getDBiD() const;
+			void setDBiD(const unsigned int&);
 
 		private:
 			std::string mTitle = "";
@@ -59,5 +63,6 @@ namespace todo {
 			unsigned int mDueDate = 0;
 			std::list<std::shared_ptr<ILabel>> mLabels;
 			std::string mUUID = "";
+			unsigned int mDBiD = 0;
 	};
 };

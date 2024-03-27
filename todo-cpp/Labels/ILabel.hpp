@@ -26,6 +26,8 @@ namespace todo {
 			virtual void setPriority(const unsigned short&) = 0;
 
 			virtual std::string getUUID() const = 0;
+			virtual unsigned int getDBiD() const = 0;
+			virtual void setDBiD(const unsigned int&) = 0;
 	};
 
 	class ALabel : public ILabel {
@@ -44,12 +46,14 @@ namespace todo {
 			void setPriority(const unsigned short&);
 
 			std::string getUUID() const;
-
+			unsigned int getDBiD() const;
+			void setDBiD(const unsigned int&);
 
 		private:
 			std::string mTitle = "";
 			LabelColor mColor;
 			unsigned short mPriority = 0;
 			std::string mUUID = "";
+			unsigned int mDBiD = 0;
 	};
 };
