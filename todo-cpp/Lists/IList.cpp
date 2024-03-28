@@ -46,6 +46,32 @@ void todo::AList::setPriority(const unsigned short &priority)
 }
 
 /**
+ * Add a card to this list. (cards are unique)
+ * @param std::shared_ptr<todo::ICard> & | card to add
+ * @return void
+**/
+void todo::AList::addCard(std::shared_ptr<todo::ICard> &card)
+{
+	if (card == nullptr)
+		return;
+	mCards.push_back(card);
+}
+
+/**
+ * Remove a card from this list. (cards are unique)
+ * @param std::shared_ptr<todo::ICard> & | card to remove
+ * @return void
+**/
+void todo::AList::removeCard(std::shared_ptr<todo::ICard> &card)
+{
+	if (card == nullptr)
+		return;
+	mCards.remove_if([&card](const std::shared_ptr<todo::ICard> &ptr) {
+		return ptr == card;
+	});
+}
+
+/**
  * Get list's uuid (used to identify lists).
  * @return std::string | list's uuid
 **/

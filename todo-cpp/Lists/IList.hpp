@@ -1,12 +1,14 @@
 #pragma once
 #include <iostream>
+#include <list>
 #include "../Tools/tool-string.hpp"
+#include "../Cards/Card.hpp"
 
 namespace todo {
 	class IList {
 		public:
-			ILabel() = default;
-			virtual ~ILabel() = default;
+			IList() = default;
+			virtual ~IList() = default;
 
 
 			virtual std::string getTitle() const = 0;
@@ -14,6 +16,9 @@ namespace todo {
 
 			virtual unsigned short getPriority() const = 0;
 			virtual void setPriority(const unsigned short&) = 0;
+
+			virtual void addCard(std::shared_ptr<ICard>&) = 0;
+			virtual void removeCard(std::shared_ptr<ICard>&) = 0;
 
 			virtual std::string getUUID() const = 0;
 			virtual unsigned int getDBiD() const = 0;
@@ -32,6 +37,9 @@ namespace todo {
 			unsigned short getPriority() const;
 			void setPriority(const unsigned short&);
 
+			void addCard(std::shared_ptr<ICard>&);
+			void removeCard(std::shared_ptr<ICard>&);
+
 			std::string getUUID() const;
 			unsigned int getDBiD() const;
 			void setDBiD(const unsigned int&);
@@ -39,6 +47,7 @@ namespace todo {
 		private:
 			std::string mTitle = "";
 			unsigned short mPriority = 0;
+			std::list<std::shared_ptr<ICard>> mCards;
 			std::string mUUID = "";
 			unsigned int mDBiD = 0;
 	};
