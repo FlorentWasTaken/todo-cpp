@@ -25,11 +25,15 @@ namespace todo {
 			virtual void addLabel(std::shared_ptr<ILabel>&) = 0;
 			virtual void removeLabel(std::shared_ptr<ILabel>&) = 0;
 
+			virtual std::string getUUID() const = 0;
+			virtual unsigned int getDBiD() const = 0;
+			virtual void setDBiD(const unsigned int&) = 0;
+
 	};
 
 	class ACard : public ICard {
 		public:
-			ACard() = default;
+			ACard();
 			virtual ~ACard() = default;
 
 
@@ -48,11 +52,17 @@ namespace todo {
 			void addLabel(std::shared_ptr<ILabel>&);
 			void removeLabel(std::shared_ptr<ILabel>&);
 
+			std::string getUUID() const;
+			unsigned int getDBiD() const;
+			void setDBiD(const unsigned int&);
+
 		private:
 			std::string mTitle = "";
 			std::string mDescription = "";
 			unsigned int mStartDate = 0;
 			unsigned int mDueDate = 0;
 			std::list<std::shared_ptr<ILabel>> mLabels;
+			std::string mUUID = "";
+			unsigned int mDBiD = 0;
 	};
 };
