@@ -362,6 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-deps/*
+server/deps/*
 !deps/conanfile.txt
 !deps/install.bat

@@ -1,5 +1,7 @@
 [requires]
 boost/1.84.0
+libmysqlclient/8.1.0
 
 [generators]
 CMakeDeps
+CMakeToolchain

@@ -11,7 +11,7 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-conan install .
+conan install . --build=missing
 
 if !errorlevel! equ 0 (
     echo !GREEN!Successfully installed dependencies in the current directory.!DEFAULT!
