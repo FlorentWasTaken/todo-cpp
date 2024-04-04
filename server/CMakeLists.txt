@@ -7,4 +7,4 @@ endif()
 
 project ("todo-cpp")
 
-add_subdirectory ("todo-cpp")
+add_subdirectory ("source")
