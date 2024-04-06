@@ -1,6 +1,6 @@
 #include "HTTP.hpp"
 
-todo::HTTP::HTTP(const short &port)
+todo::HTTP::HTTP(const short &port = 8080)
 {
     tcp::acceptor acceptor(mContext, tcp::endpoint(tcp::v4(), port));
 
@@ -28,9 +28,8 @@ void todo::HTTP::session(tcp::socket socket) const
 {
     try
     {
-        boost::beast::http::request<boost::beast::http::string_body> r = read(socket);
+        todo::HTTPresponse r = read(socket);
 
-        //write(socket, "Received data from client: " + r.body());
         socket.shutdown(tcp::socket::shutdown_send);
     }
     catch (const std::exception& e)
@@ -43,19 +42,19 @@ void todo::HTTP::session(tcp::socket socket) const
  * Write content on a socket.
  * @param tcp::socket & | socket to write on
  * @param const std::string & | response's body
+ * @param const boost::beast::http::status & | response's status (e.g : 200 = ok)
  * @return void
 **/
-void todo::HTTP::write(tcp::socket &socket, const std::string &body) const
+void todo::HTTP::write(tcp::socket &socket, const std::string &body, const boost::beast::http::status &status) const
 {
     if (!socket.is_open())
         throw std::exception("HTTP write error : Socket isn't opened");
     boost::beast::http::response<boost::beast::http::string_body> response;
 
-    //response.version(request.version());
-    response.result(boost::beast::http::status::ok);
+    response.result(status);
     response.set(boost::beast::http::field::server, "HTTP server");
     response.set(boost::beast::http::field::content_type, "text/plain");
-    //response.keep_alive(request.keep_alive());
+    response.keep_alive(false);
     response.body() = body;
     response.prepare_payload();
 
@@ -65,15 +64,16 @@ void todo::HTTP::write(tcp::socket &socket, const std::string &body) const
 /**
  * Read content on a socket.
  * @param tcp::socket & | socket to read
- * @return boost::beast::http::request<boost::beast::http::string_body>
+ * @return todo::HTTPresponse
 **/
-boost::beast::http::request<boost::beast::http::string_body> todo::HTTP::read(tcp::socket &socket) const
+todo::HTTPresponse todo::HTTP::read(tcp::socket &socket) const
 {
     if (!socket.is_open())
         throw std::exception("HTTP read error : Socket isn't opened");
     boost::beast::flat_buffer buffer;
+    todo::HTTPresponse r;
     boost::beast::http::request<boost::beast::http::string_body> request;
 
     boost::beast::http::read(socket, buffer, request);
-    return request;
+    return r = request;
 }
