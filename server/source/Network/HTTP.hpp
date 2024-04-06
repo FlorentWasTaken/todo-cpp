@@ -13,8 +13,11 @@ namespace todo {
 			HTTP(const short&);
 			~HTTP() = default;
 
+			void write(tcp::socket&, const std::string&) const;
+			boost::beast::http::request<boost::beast::http::string_body> read(tcp::socket&) const;
+
 		private:
-			void session(tcp::socket);
+			void session(tcp::socket) const;
 
 			boost::asio::io_context mContext;
 	};
