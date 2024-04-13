@@ -77,3 +77,33 @@ todo::HTTPresponse todo::HTTP::read(tcp::socket &socket) const
     boost::beast::http::read(socket, buffer, request);
     return r = request;
 }
+
+/**
+ * Add an event when a message is received from client.
+ * @param const short& code | code received (e.g : 200)
+ * @param const std::string& method | method received (e.g : POST, GET, ...)
+ * @param std::function<void()> func | the function to use when message is received
+ * @return void
+**/
+void todo::HTTP::addAnswer(const short &code, const std::string &method, std::function<void()> func)
+{
+    mAnswers.emplace(std::make_pair(code, method), func);
+}
+
+/**
+ * Remove an event for received message.
+ * @param const short& code | code received (e.g : 200)
+ * @param const std::string& method | method received (e.g : POST, GET, ...)
+ * @return bool | true if removed, false otherwise
+**/
+bool todo::HTTP::removeAnswer(const short &code, const std::string &method)
+{
+    for (auto it = mAnswers.begin(); it != mAnswers.end();) {
+        if (it->first.first == code && it->first.second == method) {
+            it = mAnswers.erase(it);
+            return true;
+        }
+        ++it;
+    }
+    return false;
+}
