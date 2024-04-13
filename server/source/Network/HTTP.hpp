@@ -5,14 +5,16 @@
 #include <map>
 #include "INetwork.hpp"
 
+#define ERROR_CODE -1
+
 using tcp = boost::asio::ip::tcp;
 
 namespace todo {
-	struct HTTPresponse {
+	struct HTTPMessage {
 		std::string body;
 		std::string method;
 
-		HTTPresponse& operator=(const boost::beast::http::request<boost::beast::http::string_body> &r) {
+		HTTPMessage& operator=(const boost::beast::http::request<boost::beast::http::string_body> &r) {
 			body = r.body();
 			method = r.method_string();
 			return *this;
@@ -26,15 +28,17 @@ namespace todo {
 			~HTTP() = default;
 
 			void write(tcp::socket&, const std::string&, const boost::beast::http::status&) const;
-			HTTPresponse read(tcp::socket&) const;
+			HTTPMessage read(tcp::socket&) const;
 
-			void addAnswer(const short&, const std::string&, std::function<void()>);
+			void addAnswer(const short&, const std::string&, std::function<HTTPMessage()>);
 			bool removeAnswer(const short&, const std::string&);
+			void answerClient(const HTTPMessage&, tcp::socket&) const;
 
 		private:
 			void session(tcp::socket) const;
+			short getCodeFromBody(const std::string&) const;
 
 			boost::asio::io_context mContext;
-			std::map<std::pair<short, std::string>, std::function<void()>> mAnswers;
+			std::map<std::pair<short, std::string>, std::function<HTTPMessage()>> mAnswers;
 	};
 };

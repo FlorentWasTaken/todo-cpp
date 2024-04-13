@@ -28,8 +28,9 @@ void todo::HTTP::session(tcp::socket socket) const
 {
     try
     {
-        todo::HTTPresponse r = read(socket);
+        todo::HTTPMessage m = read(socket);
 
+        answerClient(m, socket);
         socket.shutdown(tcp::socket::shutdown_send);
     }
     catch (const std::exception& e)
@@ -64,28 +65,28 @@ void todo::HTTP::write(tcp::socket &socket, const std::string &body, const boost
 /**
  * Read content on a socket.
  * @param tcp::socket & | socket to read
- * @return todo::HTTPresponse
+ * @return todo::HTTPMessage
 **/
-todo::HTTPresponse todo::HTTP::read(tcp::socket &socket) const
+todo::HTTPMessage todo::HTTP::read(tcp::socket &socket) const
 {
     if (!socket.is_open())
         throw std::exception("HTTP read error : Socket isn't opened");
     boost::beast::flat_buffer buffer;
-    todo::HTTPresponse r;
+    todo::HTTPMessage m;
     boost::beast::http::request<boost::beast::http::string_body> request;
 
     boost::beast::http::read(socket, buffer, request);
-    return r = request;
+    return m = request;
 }
 
 /**
  * Add an event when a message is received from client.
  * @param const short& code | code received (e.g : 200)
  * @param const std::string& method | method received (e.g : POST, GET, ...)
- * @param std::function<void()> func | the function to use when message is received
+ * @param std::function<HTTPMessage()> func | the function to use when message is received
  * @return void
 **/
-void todo::HTTP::addAnswer(const short &code, const std::string &method, std::function<void()> func)
+void todo::HTTP::addAnswer(const short &code, const std::string &method, std::function<HTTPMessage()> func)
 {
     mAnswers.emplace(std::make_pair(code, method), func);
 }
@@ -106,4 +107,47 @@ bool todo::HTTP::removeAnswer(const short &code, const std::string &method)
         ++it;
     }
     return false;
+}
+
+/**
+ * Answer a message sent by client.
+ * @param const todo::HTTPMessage &message | received message
+ * @param tcp::socket &socket | client's socket
+ * @return void
+**/
+void todo::HTTP::answerClient(const todo::HTTPMessage &message, tcp::socket &socket) const
+{
+    auto it = mAnswers.find(std::make_pair(getCodeFromBody(message.body), message.method));
+
+    if (it != mAnswers.end()) {
+        HTTPMessage m = it->second();
+
+        todo::HTTP::write(socket, m.body, static_cast<boost::beast::http::status>(getCodeFromBody(m.body)));
+    }
+}
+
+/**
+ * Get the code located in a body.
+ * @param const std::string &body | message's body
+ * @return short | the code
+**/
+short todo::HTTP::getCodeFromBody(const std::string &body) const
+{
+    if (body.empty())
+        return ERROR_CODE;
+
+    std::istringstream iss(body);
+    std::string code;
+
+    iss >> code;
+    try {
+        size_t pos = 0;
+        short shortValue = std::stoi(code, &pos);
+
+        if (pos == code.size())
+            return shortValue;
+    }
+    catch (...) {
+        return ERROR_CODE;
+    }
 }
