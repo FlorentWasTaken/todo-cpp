@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 
 const LoginPage = () => {
-  // Définition des états pour les champs du formulaire
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Gestion de la soumission du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Vous pouvez ajouter ici la logique de connexion, par exemple, une requête HTTP vers votre backend
     console.log('Email:', email);
     console.log('Password:', password);
   };
