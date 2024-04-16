@@ -1,8 +1,8 @@
-<div style="text-align:right;">
+<div align="right">
     <p>FlorentWasTaken<br>
     April 2024</p>
 </div>
-<p style="text-align:center;">todo-cpp's HTTP Protocol</p>
+<p align="center">todo-cpp's HTTP Protocol</p>
 
 
 
@@ -139,4 +139,3 @@
 			GET 21 (Get list's content) :
 				[token]    : client's token
 				[uuid]	   : list's unique id
-
