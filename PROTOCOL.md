@@ -1,17 +1,19 @@
-																		FlorentWasTaken
-																			 March 2024
-                                   todo-cpp's HTTP Protocol
+<div style="text-align:right;">
+    <p>FlorentWasTaken<br>
+    April 2024</p>
+</div>
+<p style="text-align:center;">todo-cpp's HTTP Protocol</p>
 
 
 
 
 	Table of Contents
 
-	1.     Introduction
-	2.     Architecture
-	3.     Protocol
-	3a.    Server
-	3b.    Client
+	1.		Introduction
+	2.		Architecture
+	3.		Protocol
+	3a.		Server
+	3b.		Client
 
 <br>
 1.  Introduction
@@ -27,18 +29,18 @@
 
 	Client Directory:
 
-		- source:    This is the heart of the client-side code and is further
-                     organized into various subdirectories, each dedicated to
-                     a specific aspect of the client.
+		- source:	This is the heart of the client-side code and is further
+				organized into various subdirectories, each dedicated to
+				a specific aspect of the client.
 
 
 	Server Directory:
 
-		- deps:      This directory appears to contain files related to
-		             package management,such as "conanfile.txt" and platform
-		             specific installer scripts.
+		- deps:		This directory appears to contain files related to
+				package management,such as "conanfile.txt" and platform
+				specific installer scripts.
 
-		- source:    Similar to the client's src
+		- source:	Similar to the client's src
 
 <br>
 3. HTTP Protocol
