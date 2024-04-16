@@ -1,19 +1,140 @@
-# Protocol Specification for Todo-CPP HTTP Server
+																		FlorentWasTaken
+																			 March 2024
+                                   todo-cpp's HTTP Protocol
 
-## Introduction
 
-This document outlines the protocol specifications for the Todo-CPP HTTP Server. The server is designed to handle HTTP requests and responses as per the defined protocol. The protocol specifies the format and rules for communication between clients and the server.
 
-## Overview
 
-## Request Format
+	Table of Contents
 
-## Response Format
+	1.     Introduction
+	2.     Architecture
+	3.     Protocol
+	3a.    Server
+	3b.    Client
 
-## Supported Endpoints
+<br>
+1.  Introduction
 
-## Error Handling
+	The objective of the todo-cpp project is to develop a todo-list server
+	and client like Trello
 
-## Conclusion
+<br>
+2.  Architecture
 
-This document serves as a comprehensive guide to the protocol specifications for the Todo-CPP HTTP Server. It aims to provide developers and users with a clear understanding of how the server communicates with clients and the conventions to be followed during interaction.
+	The project is organized into a client-server architecture, with separate
+	directories for the client and server components.
+
+	Client Directory:
+
+		- source:    This is the heart of the client-side code and is further
+                     organized into various subdirectories, each dedicated to
+                     a specific aspect of the client.
+
+
+	Server Directory:
+
+		- deps:      This directory appears to contain files related to
+		             package management,such as "conanfile.txt" and platform
+		             specific installer scripts.
+
+		- source:    Similar to the client's src
+
+<br>
+3. HTTP Protocol
+
+	All client-server communications are conducted using this Todo-CPP protocol.
+	A message is generated when a user requests, edits, adds, or deletes data.
+	Names enclosed in square brackets '[]' represent JSON fields. Data is
+	transmitted as JSON. Here are some examples :
+
+	Login example :
+
+		{
+			"code": 10,
+			"email": "your@email.com",
+			"password": "12345"
+		}
+<br>
+	3a. Server
+
+		To run the server, you must compile it first by running setup.bat on Windows.
+		On Windows, simply run it using Visual Studio
+
+		Below are the responses sent to the client after it makes a request.
+		If a status code other than 200 is received, none of the JSON fields will be sent.
+
+		Command: Authentication
+			POST 10 (Login) :
+				[code]  : - 200 success
+						  - 400 wrong password or email
+						  - 401 already connected
+				[token] : client's token as string
+
+			POST 11 (Register) :
+				[code]  : - 200 success
+						  - 400 wrong password or email
+						  - 401 already connected
+						  - 402 user already exists
+				[token] : client's token as string
+
+			POST 12 (Logout) :
+				[code]  : - 200 success
+						  - 400 not connected
+
+		Command: Lists
+			GET 20 (Get all lists) :
+				[code]		: - 200 success
+							  - 400 not connected
+							  - 401 failure
+				[index] 	: list's index (1, 2, 3, ...) as int. Is a table in JSON for each list
+					[uuid]  : list's unique id as string
+					[title] : list's name
+
+			POST 20 (Create a list) :
+				[code]		: - 200 success
+							  - 400 not connected
+							  - 401 failure
+				[uuid]		: list's unique id as string
+				[index]		: list's index as int
+
+			GET 21 (Get list's content) :
+				[code]		: - 200 success
+							  - 400 not connected
+							  - 401 failure
+				[index] 	: card's index (1, 2, 3, ...) as int. Is a table in JSON for each card
+					[uuid]  : card's unique id as string
+					[title] : card's title
+
+<br>
+	3b. Client
+
+		To run the client, you must compile it first by running npm install.
+		Next, use npm run to start the client. Below are the request sent to
+		the server.
+
+		Command: Authentication
+			POST 10 (Login) :
+				[email]    : client's email
+				[password] : client's password
+
+			POST 11 (Register) :
+				[email]    : client's email
+				[password] : client's password
+
+			POST 12 (Logout) :
+				[token]    : client's token as string
+
+
+		Command: Lists
+			GET 20 (Get all lists) :
+				[token]    : client's token
+
+			POST 20 (Create a list) :
+				[token]    : client's token
+				[title]    : list's title
+
+			GET 21 (Get list's content) :
+				[token]    : client's token
+				[uuid]	   : list's unique id
+
