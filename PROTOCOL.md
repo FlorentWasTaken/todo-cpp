@@ -9,11 +9,11 @@
 
 	Table of Contents
 
-	1.		Introduction
-	2.		Architecture
-	3.		Protocol
-	3a.		Server
-	3b.		Client
+	1.      Introduction
+	2.      Architecture
+	3.      Protocol
+	3a.     Server
+	3b.     Client
 
 <br>
 1.  Introduction
@@ -29,18 +29,18 @@
 
 	Client Directory:
 
-		- source:	This is the heart of the client-side code and is further
-				organized into various subdirectories, each dedicated to
-				a specific aspect of the client.
+		- source:   This is the heart of the client-side code and is further
+                    organized into various subdirectories, each dedicated to
+                    a specific aspect of the client.
 
 
 	Server Directory:
 
-		- deps:		This directory appears to contain files related to
-				package management,such as "conanfile.txt" and platform
-				specific installer scripts.
+        - deps:     This directory appears to contain files related to
+                    package management,such as "conanfile.txt" and platform
+                    specific installer scripts.
 
-		- source:	Similar to the client's src
+        - source:   Similar to the client's src
 
 <br>
 3. HTTP Protocol
@@ -52,11 +52,11 @@
 
 	Login example :
 
-		{
-			"code": 10,
-			"email": "your@email.com",
-			"password": "12345"
-		}
+        {
+            "code": 10,
+            "email": "your@email.com",
+            "password": "12345"
+        }
 <br>
 	3a. Server
 
@@ -109,33 +109,33 @@
 					[title] : card's title
 
 <br>
-	3b. Client
+    3b. Client
 
-		To run the client, you must compile it first by running npm install.
-		Next, use npm run to start the client. Below are the request sent to
-		the server.
+        To run the client, you must compile it first by running npm install.
+        Next, use npm run to start the client. Below are the request sent to
+        the server.
 
-		Command: Authentication
-			POST 10 (Login) :
-				[email]    : client's email
-				[password] : client's password
+        Command: Authentication
+            POST 10 (Login) :
+                [email]    : client's email
+                [password] : client's password
 
-			POST 11 (Register) :
-				[email]    : client's email
-				[password] : client's password
+            POST 11 (Register) :
+                [email]    : client's email
+                [password] : client's password
 
-			POST 12 (Logout) :
-				[token]    : client's token as string
+            POST 12 (Logout) :
+                [token]    : client's token as string
 
 
-		Command: Lists
-			GET 20 (Get all lists) :
-				[token]    : client's token
+        Command: Lists
+            GET 20 (Get all lists) :
+                [token]    : client's token
 
-			POST 20 (Create a list) :
-				[token]    : client's token
-				[title]    : list's title
+            POST 20 (Create a list) :
+                [token]    : client's token
+                [title]    : list's title
 
-			GET 21 (Get list's content) :
-				[token]    : client's token
-				[uuid]	   : list's unique id
+            GET 21 (Get list's content) :
+                [token]    : client's token
+                [uuid]	   : list's unique id
