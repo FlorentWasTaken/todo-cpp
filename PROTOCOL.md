@@ -29,7 +29,7 @@
 
 	Client Directory:
 
-		- source:   This is the heart of the client-side code and is further
+        - source:   This is the heart of the client-side code and is further
                     organized into various subdirectories, each dedicated to
                     a specific aspect of the client.
 
@@ -104,9 +104,34 @@
 				[code]		: - 200 success
 							  - 400 not connected
 							  - 401 failure
-				[index] 	: card's index (1, 2, 3, ...) as int. Is a table in JSON for each card
-					[uuid]  : card's unique id as string
-					[title] : card's title
+				[cards]		: JSON table containing each cards from this list
+					[index] 	: card's index (1, 2, 3, ...) as int.
+						[uuid]  : card's unique id as string
+						[title] : card's title
+
+		Command: Cards
+			GET 30 (Get a card's detail) :
+				[code]		: - 200 success
+							  - 400 not connected
+							  - 401 failure
+				[desc]		: card's description
+				[sdate]		: card's start date (0 if none) as int timestamp
+				[ddate]		: card's due date (0 if none) as int timestamp
+				[labels]	: JSON table containing each label from this card
+					[index] 	: label's index (1, 2, 3, ...) as int.
+						[uuid]  : label's unique id as string
+						[title] : label's title
+						[color]	: JSON table containing RGB value
+							[r]	: red color as int
+							[g]	: green color as int
+							[b]	: blue color as int
+
+			POST 30 (Create a card)	:
+				[code]		: - 200 success
+							  - 400 not connected
+							  - 401 failure
+				[index] 	: card's index (1, 2, 3, ...) as int.
+				[uuid]  	: card's unique id as string
 
 <br>
     3b. Client
@@ -139,3 +164,17 @@
             GET 21 (Get list's content) :
                 [token]    : client's token
                 [uuid]	   : list's unique id
+
+		Command: Cards
+			GET 30 (Get a card's detail) :
+				[token]		: client's token
+				[parent]	: parent (list)'s unique id
+				[uuid]		: card's unique id
+
+			POST 30 (Create a card)	:
+				[token]		: client's token
+				[parent]	: parent (list)'s unique id
+				[title]		: card's title
+				[desc]		: card's description (not necessary)
+				[sdate]		: card's start date (not necessary)
+				[ddate]		: card's due date (not necessary)
