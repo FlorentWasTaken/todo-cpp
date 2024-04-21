@@ -1,10 +1,12 @@
-import logo from './logo.svg';
-import LoginPage from './login/login';
+import LoginPage from './auth/login';
+import { useState } from 'react';
 
 function App() {
+  const [language] = useState('en');
+
   return (
     <div className="App">
-      <LoginPage />
+      <LoginPage language={language}/>
     </div>
   );
 }

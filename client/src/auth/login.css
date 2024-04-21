@@ -1,0 +1,7 @@
+.links-container span {
+    cursor: pointer;
+}
+
+.links-container span:hover {
+text-decoration: underline;
+}
